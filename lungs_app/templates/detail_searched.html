@@ -1,0 +1,90 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<style>
+    .div1{
+    color:green;
+    }
+    .div2{
+    color:red;
+    }
+</style>
+<div class="container" style="width:60%;margin-top:12%;margin-bottom:5%;background:white;border-radius:2%;border:1px solid grey">
+    <h2 style="font-weight:bold;font-family : 'Monotype Corsiva' ; color : #E6120E ;margin-top:2%" align="center">Detail Infomation</h2>
+
+<div align="left" class="container-fluid" style="width:100%;margin-bottom:5%">
+    <hr>
+    {% if pro.predict_for == "Lungs Cancer Prediction" %}
+    <div class="row" >
+        <div class="col-md-6 div2">
+            <strong>Input Image:</strong>
+        </div>
+        <div class="col-md-6">
+            <img src="{{pro.uploaded.url}}" style="width:100px;height:130px"></img>
+        </div></div><hr>
+
+
+    <div class="row">
+        <div class="col-md-6 div2">
+            <strong>Output Image:</strong>
+        </div>
+        <div class="col-md-6">
+            <img src="{{pro.output.url}}" style="width:100px;height:130px"></img>
+        </div></div><hr>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-6 div2">
+            <strong>Prediction Accuracy :</strong>
+        </div>
+        <div class="col-md-6 div1">
+            {{pro.prediction_accuracy}}
+        </div>
+    </div><hr>
+
+     <div class="row">
+        <div class="col-md-6 div2">
+            <strong>Predict for :</strong>
+        </div>
+        <div class="col-md-6 div1">
+            {{pro.predict_for}}
+        </div>
+    </div><hr>
+
+
+     <div class="row">
+        <div class="col-md-6 div2">
+            <strong>Result :</strong>
+        </div>
+        <div class="col-md-6 div1">
+            {% if pro.result == "0" %}
+                                      <h5 style="color:green">Healthy</h5>
+                                      {% elif pro.result == "1" %}
+                                        <h5 style="color:red">Unhealthy</h5>
+                                    {% elif pro.result == 'Bengin' %}
+                                        {{pro.result}}(Unhealthy)
+                                        {% elif pro.result == 'Malignant' %}
+                                        {{pro.result}}(Unhealthy)
+
+                                        {% elif pro.result == 'Normal' %}
+                                        {{pro.result}}(Healthy)
+                                        {% else %}
+                                        {{pro.result}}
+
+                                        {% endif %}
+        </div>
+     </div><hr>
+
+    <div class="row">
+        <div class="col-md-6 div2">
+            <strong>Username  :</strong>
+        </div>
+        <div class="col-md-6 div1">
+            {{pro.patient.user.first_name}} {{pro.patient.user.last_name}}
+        </div>
+    </div><hr>
+    
+    </div>
+</div>
+</div>
+{% endblock %}

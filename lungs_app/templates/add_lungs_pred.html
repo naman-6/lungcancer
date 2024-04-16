@@ -1,0 +1,112 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+	<!-- register -->
+
+
+
+	<section class="logins py-5">
+		<div class="container py-xl-5 py-lg-3">
+			<div class="title-section mb-md-5 mb-4">
+				<h6 class="w3ls-title-sub"></h6>
+				<h3 class="w3ls-title text-uppercase text-dark font-weight-bold">Lungs Cancer Prediction</h3>
+			</div><hr/>
+			<div class="login px-sm-12" style="width:100%">
+				<form action="" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="form-group row">
+						<div class="col-md-12">
+                            <label>Upload Lungs Image</label>
+                            <input type="file" class="form-control" name="file"  required="">
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary submit mt-4">Send Lungs data</button>
+				</form>
+			</div>
+			{% if data %}
+			<div class="container">
+				<div class="row">
+					<div class="col-6">
+						<h5>Input Image</h5>
+						<img src="{{data.uploaded.url}}" style="width:600px">
+					</div>
+					<div class="col-6">
+						<h5>Output Image</h5>
+						<img src="{{data.output.url}}" style="width:600px">
+					</div>
+				</div>
+			</div>
+			{% endif %}<br><br>
+			{% if clas_name == "Bengin" %}
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<h2 align="center" style="color:orange">You have a non – cancerous cells.</h2>
+						<p>Here are some of the precautions.</p>
+						<ul>
+							<li>Stop smoking immediately</li>
+							<li>Exercise regularly and maintain a balanced diet.</li>
+							<li>Avoid carcinogens at work</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			{% elif clas_name == "Normal" %}
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<h2 align="center" style="color:green">You are healthy.</h2>
+					</div>
+				</div>
+			</div>
+			{% elif clas_name == "Malignant" %}
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<h2 align="center" style="color:red">You have a cancerous cells. You may visit your nearby doctor and get treated immediately</h2>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+			
+			{% if data and clas_name != "Normal"  %}
+			<div class="container-fluid">
+				<h1 align="center" style="font-weight:bold;font-family : 'Monotype Corsiva' ; color : #E6120E ;margin-top:4%">You can connect with our Doctors</h1>
+				 </div><hr>
+						<table id="example" class="display" style="width:100%">
+						  <thead>
+							<tr>
+							  <th>#</th>
+							  <th>Full Name</th>
+							  <th>Image</th>
+							  <th>Email</th>
+							  <th>Contact</th>
+							  <th>Address</th>
+							  
+
+						  </tr>
+					  </thead>
+					  <tbody>
+					  {% for i in doctor %}
+						<tr>
+						  <td>{{forloop.counter}}</td>
+						  <td>{{i.user.first_name}} {{i.user.last_name}}</td>
+						  <td><img src="{{i.image.url}}" style="width:80px;height:80px"></td>
+						  <td>{{i.user.email}}</td>
+						  <td>{{i.contact}}</td>
+						  <td>{{i.address}}</td>
+						  
+					  </tr>
+					  {% empty %}
+					  	 <td colspan="6">There is no doctor available.</td>
+					  {% endfor %}
+				  </tbody>
+			  </table>
+		  </div>
+			{% endif %}
+
+		</div>
+	</section>
+	<!-- //register -->
+
+{% endblock %}

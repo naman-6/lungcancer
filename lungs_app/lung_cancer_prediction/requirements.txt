@@ -1,0 +1,7 @@
+python version = 3.8.8
+#install below dependencies
+tensorflow == 2.4.3
+numpy
+pandas
+opencv-contrib-python
+efficientnet == 1.1.1
